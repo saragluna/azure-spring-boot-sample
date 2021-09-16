@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    azure:
+      credential:
+        client-id: ${SPRING_CLIENT_ID}
+        client-secret: ${SPRING_CLIENT_SECRET}
+      profile:
+        tenant-id: ${SPRING_TENANT_ID}
+        subscription-id: ${SPRING_SUBSCRIPTION_ID}
+      cosmos:
+        uri:
+        database:
+        key:
+      keyvault:
+        secret:
+          vault-url:
+          property-source-enabled: true
+        certificate:
+          vault-url:
+          enabled: false
+      eventhub:
+        consumer-group:
+        event-hub-name:
+        namespace:
+      servicebus:
+        producer:
+          queue-name:
+        consumer:
+          queue-name:
+        namespace:
+      storage:
+        blob:
+          account-key:
+          account-name:
+          container-name:
+        fileshare:
+          account-name:
+          account-key:
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    azure-cosmos:
+      enabled: true
