@@ -24,3 +24,5 @@ hs_err_pid*
 
 target/
 **/application-local.yml
+**/spring.application.json
+**/test-resources.json.env

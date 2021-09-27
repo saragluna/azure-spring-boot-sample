@@ -1,0 +1,147 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseName": {
+      "defaultValue": "[resourceGroup().name]",
+      "type": "string"
+    },
+    "storageNamePrefix": {
+      "defaultValue": "[substring(uniqueString(parameters('baseName')), 0, 11)]",
+      "type": "string"
+    }
+  },
+  "variables": {
+    "accountName": "[substring(toLower(concat(parameters('storageNamePrefix'), uniqueString(resourceGroup().id))), 0, 24)]",
+    "blobServiceName": "default",
+    "fileServiceName": "default",
+    "blobContainerName": "testblob",
+    "fileShareName": "testfile",
+    "blobResourceName": "azure-blob://testblob/testblob.txt",
+    "fileResourceName": "azure-file://testfile/testfile.txt"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2019-06-01",
+      "name": "[variables('accountName')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard_RAGRS",
+        "tier": "Standard"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [],
+          "ipRules": [],
+          "defaultAction": "Allow"
+        },
+        "supportsHttpsTrafficOnly": true,
+        "encryption": {
+          "services": {
+            "file": {
+              "keyType": "Account",
+              "enabled": true
+            },
+            "blob": {
+              "keyType": "Account",
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        },
+        "accessTier": "Hot"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices",
+      "apiVersion": "2019-06-01",
+      "name": "[concat(variables('accountName'), '/', variables('blobServiceName'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))]"
+      ],
+      "sku": {
+        "name": "Standard_RAGRS",
+        "tier": "Standard"
+      },
+      "properties": {
+        "cors": {
+          "corsRules": []
+        },
+        "deleteRetentionPolicy": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/fileServices",
+      "apiVersion": "2019-06-01",
+      "name": "[concat(variables('accountName'), '/', variables('fileServiceName'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts',variables('accountName'))]"
+      ],
+      "sku": {
+        "name": "Standard_RAGRS",
+        "tier": "Standard"
+      },
+      "properties": {
+        "cors": {
+          "corsRules": []
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+      "apiVersion": "2019-06-01",
+      "name": "[concat(variables('accountName'), '/', variables('blobServiceName'), '/', variables('blobContainerName'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('accountName'), variables('blobServiceName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))]"
+      ],
+      "properties": {
+        "publicAccess": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+      "apiVersion": "2019-06-01",
+      "name": "[concat(variables('accountName'), '/', variables('fileServiceName'), '/', variables('fileShareName'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts/fileServices', variables('accountName'), variables('fileServiceName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "STORAGE_ACCOUNT_NAME": {
+      "type": "string",
+      "value": "[variables('accountName')]"
+    },
+    "STORAGE_ACCOUNT_KEY": {
+      "type": "string",
+      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('accountName')), '2019-06-01').keys[0].value]"
+    },
+    "STORAGE_BLOB_CONTAINER_NAME": {
+      "type" : "string",
+      "value": "[variables('blobContainerName')]"
+    },
+    "STORAGE_BLOB_ENDPOINT": {
+      "type" : "string",
+      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))).primaryEndpoints.blob]"
+    },
+    "STORAGE_FILE_ENDPOINT": {
+      "type" : "string",
+      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))).primaryEndpoints.file]"
+    },
+    "STORAGE_BLOB_RESOURCE_NAME": {
+      "type": "string",
+      "value": "[variables('blobResourceName')]"
+    },
+    "STORAGE_FILE_RESOURCE_NAME": {
+      "type": "string",
+      "value": "[variables('fileResourceName')]"
+    }
+  }
+}

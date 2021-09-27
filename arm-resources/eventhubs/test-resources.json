@@ -1,0 +1,95 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseName": {
+      "defaultValue": "[resourceGroup().name]",
+      "type": "String"
+    }
+  },
+  "functions": [],
+  "variables": {
+    "namespaceName": "[concat(parameters('baseName'),'-eventhub-namespace')]",
+    "accessKeyName": "RootManageSharedAccessKey",
+    "eventHubName": "test-eventhub",
+    "consumerGroupName": "$Default",
+    "location": "[resourceGroup().location]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.EventHub/namespaces",
+      "apiVersion": "2018-01-01-preview",
+      "name": "[variables('namespaceName')]",
+      "location": "[variables('location')]",
+      "sku": {
+        "name": "Standard",
+        "tier": "Standard",
+        "capacity": 1
+      },
+      "properties": {
+        "zoneRedundant": false,
+        "isAutoInflateEnabled": false,
+        "maximumThroughputUnits": 0
+      }
+    },
+    {
+      "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+      "apiVersion": "2017-04-01",
+      "name": "[concat(variables('namespaceName'), '/', variables('accessKeyName'))]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.EventHub/namespaces', variables('namespaceName'))]"
+      ],
+      "properties": {
+        "rights": [
+          "Listen",
+          "Manage",
+          "Send"
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.EventHub/namespaces/eventhubs",
+      "apiVersion": "2017-04-01",
+      "name": "[concat(variables('namespaceName'), '/', variables('eventHubName'))]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.EventHub/namespaces', variables('namespaceName'))]"
+      ],
+      "properties": {
+        "messageRetentionInDays": 1,
+        "partitionCount": 1,
+        "status": "Active"
+      }
+    },
+    {
+      "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+      "apiVersion": "2017-04-01",
+      "name": "[concat(variables('namespaceName'), '/', variables('eventHubName'), '/', variables('consumerGroupName'))]",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.EventHub/namespaces/eventhubs', variables('namespaceName'), variables('eventHubName'))]",
+        "[resourceId('Microsoft.EventHub/namespaces', variables('namespaceName'))]"
+      ],
+      "properties": {}
+    }
+  ],
+  "outputs": {
+    "EVENTHUB_NAMESPACE_NAME": {
+      "type": "string",
+      "value": "[variables('namespaceName')]"
+    },
+    "EVENTHUB_NAME": {
+      "type": "string",
+      "value": "[variables('eventHubName')]"
+    },
+    "EVENTHUB_CONSUMER_GROUP_NAME": {
+      "type": "string",
+      "value": "[variables('consumerGroupName')]"
+    },
+    "EVENTHUB_CONNECTION_STRING": {
+      "type": "string",
+      "value": "[listKeys(resourceId('Microsoft.EventHub/namespaces/authorizationRules', variables('namespaceName'), variables('accessKeyName')), '2017-04-01').primaryConnectionString]"
+    }
+  }
+}
