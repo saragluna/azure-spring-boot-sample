@@ -1,0 +1,9 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    azure-cosmos:
+      enabled: true
+storage-blob-resource-name: azure-blob://${STORAGE_BLOB_CONTAINER_NAME:none}/${STORAGE_BLOB_NAME:none}
+storage-file-resource-name: azure-file://${STORAGE_FILE_SHARE_NAME:none}/${STORAGE_FILE_NAME:none}

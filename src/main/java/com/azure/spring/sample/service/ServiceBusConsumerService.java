@@ -9,10 +9,14 @@ import com.azure.messaging.servicebus.ServiceBusReceiverClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.Duration;
 
 /**
  *
  */
+@Service
 public class ServiceBusConsumerService implements AzureService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceBusConsumerService.class);
@@ -23,7 +27,7 @@ public class ServiceBusConsumerService implements AzureService {
     @Override
     public void run() {
         final IterableStream<ServiceBusReceivedMessage> serviceBusReceivedMessages =
-            this.receiverClient.receiveMessages(2);
+            this.receiverClient.receiveMessages(2, Duration.ofSeconds(2));
 
         for (ServiceBusReceivedMessage message : serviceBusReceivedMessages) {
             LOGGER.info("========== Received from service bus {}", message.getBody().toString());

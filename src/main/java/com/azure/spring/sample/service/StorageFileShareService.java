@@ -6,9 +6,8 @@ package com.azure.spring.sample.service;
 import com.azure.storage.file.share.ShareClient;
 import com.azure.storage.file.share.ShareFileClient;
 import com.azure.storage.file.share.ShareServiceClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
@@ -19,22 +18,27 @@ import java.io.ByteArrayInputStream;
 @Service
 public class StorageFileShareService implements AzureService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StorageFileShareService.class);
-
     @Autowired(required = false)
     private ShareServiceClient shareServiceClient;
+
+    @Value("${STORAGE_FILE_NAME:none}")
+    private String fileName;
+
+    @Value("${STORAGE_FILE_SHARE_NAME:none}")
+    private String fileShareName;
+
     
     @Override
     public void run() {
-        final ShareClient fileshare1 = this.shareServiceClient.getShareClient("fileshare1");
-        final ShareFileClient abc = fileshare1.getFileClient("abcd");
-        if (!abc.exists()) {
-            final String content = "this is my file";
-            abc.create(content.length() + 10);
-            abc.upload(new ByteArrayInputStream(content.getBytes()), content.length());
+        final ShareClient fileShare = this.shareServiceClient.getShareClient(fileShareName);
+        final ShareFileClient file = fileShare.getFileClient(fileName);
+        if (!file.exists()) {
+            final String content = "this is my fileShare";
+            file.create(content.length() + 10);
+            file.upload(new ByteArrayInputStream(content.getBytes()), content.length());
         }
 
-        abc.download(System.out);
+        file.download(System.out);
     }
 
     @Override

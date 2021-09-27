@@ -17,8 +17,8 @@
     "fileServiceName": "default",
     "blobContainerName": "testblob",
     "fileShareName": "testfile",
-    "blobResourceName": "azure-blob://testblob/testblob.txt",
-    "fileResourceName": "azure-file://testfile/testfile.txt"
+    "blobName": "testblob.txt",
+    "fileName": "testfile.txt"
   },
   "resources": [
     {
@@ -127,6 +127,10 @@
       "type" : "string",
       "value": "[variables('blobContainerName')]"
     },
+    "STORAGE_FILE_SHARE_NAME": {
+      "type" : "string",
+      "value": "[variables('fileShareName')]"
+    },
     "STORAGE_BLOB_ENDPOINT": {
       "type" : "string",
       "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))).primaryEndpoints.blob]"
@@ -135,13 +139,13 @@
       "type" : "string",
       "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('accountName'))).primaryEndpoints.file]"
     },
-    "STORAGE_BLOB_RESOURCE_NAME": {
+    "STORAGE_BLOB_NAME": {
       "type": "string",
-      "value": "[variables('blobResourceName')]"
+      "value": "[variables('blobName')]"
     },
-    "STORAGE_FILE_RESOURCE_NAME": {
+    "STORAGE_FILE_NAME": {
       "type": "string",
-      "value": "[variables('fileResourceName')]"
+      "value": "[variables('fileName')]"
     }
   }
 }

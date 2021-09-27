@@ -21,7 +21,7 @@ public class StorageFileResourceService implements AzureService {
     @Autowired(required = false)
     private StorageFileShareService storageFileShareService;
 
-    @Value("${STORAGE_FILE_RESOURCE_NAME}")
+    @Value("${storage-file-resource-name:none}")
     private Resource fileResource;
 
     @Override

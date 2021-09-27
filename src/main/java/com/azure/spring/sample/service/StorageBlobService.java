@@ -9,6 +9,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,16 +22,19 @@ public class StorageBlobService implements AzureService {
     
     @Autowired(required = false)
     private BlobContainerClient blobContainerClient;
+
+    @Value("${STORAGE_BLOB_NAME:none}")
+    private String blobName;
     
     @Override
     public void run() {
-        final BlobClient abc = blobContainerClient.getBlobClient("abc");
+        final BlobClient blob = blobContainerClient.getBlobClient(blobName);
 
-        if (!abc.exists()) {
-            abc.upload(BinaryData.fromString("this is my content"));
+        if (!blob.exists()) {
+            blob.upload(BinaryData.fromString("this is my content"));
         }
 
-        final String read = abc.downloadContent().toString();
+        final String read = blob.downloadContent().toString();
         LOGGER.info("========== Received from storage {}", read);
     }
 

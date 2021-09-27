@@ -21,7 +21,7 @@ public class StorageBlobResourceService implements AzureService {
     @Autowired(required = false)
     private StorageBlobService storageBlobService;
 
-    @Value("${STORAGE_BLOB_RESOURCE_NAME}")
+    @Value("${storage-blob-resource-name:none}")
     private Resource storageResource;
 
     @Override
