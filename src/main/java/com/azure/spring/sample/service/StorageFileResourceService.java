@@ -21,13 +21,13 @@ public class StorageFileResourceService implements AzureService {
     @Autowired(required = false)
     private StorageFileShareService storageFileShareService;
 
-    @Value("${storage-file-resource-name:none}")
+    @Value("${storage-file-resource-name}")
     private Resource fileResource;
 
     @Override
     public void run() {
         try {
-            LOGGER.info("========== File resource {}", StreamUtils.copyToString(this.fileResource.getInputStream(),
+            LOGGER.info("########## File resource {}", StreamUtils.copyToString(this.fileResource.getInputStream(),
                                                                                 Charset.defaultCharset()));
         } catch (IOException e) {
             e.printStackTrace();

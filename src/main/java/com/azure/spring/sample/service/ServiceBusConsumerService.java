@@ -30,7 +30,7 @@ public class ServiceBusConsumerService implements AzureService {
             this.receiverClient.receiveMessages(2, Duration.ofSeconds(2));
 
         for (ServiceBusReceivedMessage message : serviceBusReceivedMessages) {
-            LOGGER.info("========== Received from service bus {}", message.getBody().toString());
+            LOGGER.info("########## Received from service bus {}", message.getBody().toString());
         }
     }
 

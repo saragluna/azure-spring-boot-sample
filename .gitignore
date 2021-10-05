@@ -26,3 +26,14 @@ target/
 **/application-local.yml
 **/spring.application.json
 **/test-resources.json.env
+
+# Other Tooling #
+.classpath
+.project
+target
+.idea
+*.iml
+
+# Mac OS #
+.DS_Store
+.DS_Store?

@@ -5,7 +5,11 @@ package com.azure.spring.sample.service;
 
 import com.azure.messaging.eventhubs.EventData;
 import com.azure.messaging.eventhubs.EventHubProducerClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +19,10 @@ import java.util.List;
  *
  */
 @Service
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class EventHubProducerService implements AzureService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventHubProducerService.class);
 
     @Autowired(required = false)
     private EventHubProducerClient producerClient;
@@ -27,6 +34,8 @@ public class EventHubProducerService implements AzureService {
         eventDataList.add(new EventData("send to eventhub 1"));
         eventDataList.add(new EventData("send to eventhub 2"));
         producerClient.send(eventDataList);
+
+        LOGGER.info("########## Sent two messages to Event Hub");
     }
 
     @Override

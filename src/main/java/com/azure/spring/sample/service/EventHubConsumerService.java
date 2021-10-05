@@ -33,7 +33,7 @@ public class EventHubConsumerService implements AzureService {
                                                                                                        EventPosition.earliest(),
                                                                                                        Duration.ofSeconds(4));
             for (PartitionEvent event : partitionEvents) {
-                LOGGER.info("========== Received from event hub {}", event.getData().getBodyAsString());
+                LOGGER.info("########## Received from event hub {}", event.getData().getBodyAsString());
             }
         }
     }

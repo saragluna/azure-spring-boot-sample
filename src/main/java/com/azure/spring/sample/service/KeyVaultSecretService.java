@@ -8,6 +8,7 @@ import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,10 +22,13 @@ public class KeyVaultSecretService implements AzureService {
     @Autowired(required = false)
     private SecretClient secretClient;
 
+    @Value("${KEY_VAULT_SECRET_NAME}")
+    private String secretName;
+
     @Override
     public void run() {
-        final KeyVaultSecret secret = secretClient.getSecret("spring-cosmos-db-key");
-        LOGGER.info("========== Received from kv {}", secret.getValue());
+        final KeyVaultSecret secret = secretClient.getSecret(secretName);
+        LOGGER.info("########## Received from kv with secret name {}, value {}", secretName, secret.getValue());
     }
 
     @Override

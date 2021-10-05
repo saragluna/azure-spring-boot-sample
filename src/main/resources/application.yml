@@ -5,5 +5,17 @@ management:
   health:
     azure-cosmos:
       enabled: true
-storage-blob-resource-name: azure-blob://${STORAGE_BLOB_CONTAINER_NAME:none}/${STORAGE_BLOB_NAME:none}
-storage-file-resource-name: azure-file://${STORAGE_FILE_SHARE_NAME:none}/${STORAGE_FILE_NAME:none}
+logging:
+  level:
+    com:
+      azure:
+        core:
+          amqp: WARN
+        messaging:
+          servicebus: WARN
+          eventhubs: WARN
+
+storage-blob-resource-name: azure-blob://${STORAGE_CONTAINER_NAME}/${blob-name}
+storage-file-resource-name: azure-file://${STORAGE_SHARE_NAME}/${file-name}
+blob-name: testblob.txt
+file-name: testfile.txt

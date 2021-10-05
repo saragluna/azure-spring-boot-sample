@@ -21,13 +21,13 @@ public class StorageBlobResourceService implements AzureService {
     @Autowired(required = false)
     private StorageBlobService storageBlobService;
 
-    @Value("${storage-blob-resource-name:none}")
+    @Value("${storage-blob-resource-name}")
     private Resource storageResource;
 
     @Override
     public void run() {
         try {
-            LOGGER.info("========== Storage resource {}", StreamUtils.copyToString(this.storageResource.getInputStream(),
+            LOGGER.info("########## Storage resource {}", StreamUtils.copyToString(this.storageResource.getInputStream(),
                                                                                    Charset.defaultCharset()));
         } catch (IOException e) {
             e.printStackTrace();

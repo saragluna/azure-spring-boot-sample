@@ -8,29 +8,35 @@ import com.azure.storage.file.share.ShareFileClient;
 import com.azure.storage.file.share.ShareServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 
 /**
  *
  */
 @Service
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class StorageFileShareService implements AzureService {
 
     @Autowired(required = false)
     private ShareServiceClient shareServiceClient;
 
-    @Value("${STORAGE_FILE_NAME:none}")
+    @Value("${file-name}")
     private String fileName;
 
-    @Value("${STORAGE_FILE_SHARE_NAME:none}")
-    private String fileShareName;
+    @Value("${STORAGE_SHARE_NAME}")
+    private String shareName;
 
     
     @Override
     public void run() {
-        final ShareClient fileShare = this.shareServiceClient.getShareClient(fileShareName);
+        final ShareClient fileShare = this.shareServiceClient.getShareClient(shareName);
         final ShareFileClient file = fileShare.getFileClient(fileName);
         if (!file.exists()) {
             final String content = "this is my fileShare";
@@ -38,7 +44,9 @@ public class StorageFileShareService implements AzureService {
             file.upload(new ByteArrayInputStream(content.getBytes()), content.length());
         }
 
-        file.download(System.out);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        file.download(baos);
+        LOGGER.info("########## File resource {}", StreamUtils.copyToString(baos, Charset.defaultCharset()));
     }
 
     @Override

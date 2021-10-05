@@ -20,14 +20,21 @@ class KeyVaultPropertySourceService implements AzureService {
     @Value("${spring.cloud.azure.keyvault.property-source-enabled:false}")
     private boolean propertySourceEnabled;
 
-    @Value("${spring-cosmos-db-key:abc}")
+    @Value("${KEY_VAULT_SECRET_NAME}")
+    private String secretName;
+
+    @Value("${${KEY_VAULT_SECRET_NAME}:abc}")
     private String value;
+
+    @Value("${STORAGE_ACCOUNT_KEY}")
+    private String storageAccountKey;
+
 
 
     @Override
     public void run() {
-        Assert.isTrue("rock".equals(value), "The 'spring-cosmos-db-key' should have value 'rock'");
-        LOGGER.info("========== Property 'spring-cosmos-db-key' in Azure Key Vault has value: {}", value);
+        Assert.isTrue(storageAccountKey.equals(value), "The " + secretName + " shouldn't have value " + storageAccountKey);
+        LOGGER.info("########## Property '{}' in Azure Key Vault has value: {}", secretName, value);
     }
 
     @Override
