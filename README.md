@@ -89,6 +89,12 @@ There are three profiles defined in this application, `credential-default`, `cre
 
 Make sure you specify the corresponding profile before running the application.
 
+## Clean up the resources
+
+```shell
+terraform destroy
+```
+
 ## Known issues
 ### How to find the service principal id?
 
@@ -117,5 +123,11 @@ With knowledge of these two components [terraform-provider-azurecaf](https://git
 - Use Visual Studio Code and install the [Terraform](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform) and [Azure Terraform](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureterraform) extensions.
 - Refer to https://github.com/aztfmod/terraform-provider-azurecaf to see [supported resources](https://github.com/aztfmod/terraform-provider-azurecaf#resource-status).
 - Refer to https://github.com/hashicorp/terraform-provider-azurerm to see whether is a feature supported.
+
+### Fail to provision storage after destroy
+
+https://github.com/hashicorp/terraform-provider-azurerm/issues/7880
+
+If you run `terraform apply` immediately after `terraform destroy`, it will complains the storage container can't be found. Just wait a couple minutes to run `terraform apply` will solve this problem.
 
 
