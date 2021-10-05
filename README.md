@@ -53,7 +53,7 @@ contributorRoleDefinitionId='/subscriptions/'$subscriptionId'/resourceGroups/'$r
 
 az cosmosdb sql role assignment create --account-name $accountName --resource-group $resourceGroupName --scope "/" --principal-id $principalId --role-definition-id $contributorRoleDefinitionId
 ```
-Check [here](#why-do-I-need-to-manually-add-the-role-assignment-of-cosmos) for more information.
+Check [here](#why-do-i-need-to-manually-add-the-role-assignment-of-cosmos) for more information.
 
 
 ## Copy the outputs from Terraform to Your IDE or Environment
@@ -81,7 +81,7 @@ There are three profiles defined in this application, `credential-default`, `cre
 Make sure you specify the corresponding profile before running the application.
 
 ## Known issues
-### How to find the service principal id
+### How to find the service principal id?
 
 The service principal id is the `Object Id` you could find from the portal by:
 
@@ -96,7 +96,7 @@ The service principal id is the `Object Id` you could find from the portal by:
 `terraform-provider-azurecaf` doesn't have a darwin_arm64 package now.
 https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
 
-### Why do I need to manually add the role assignment of Cosmos
+### Why do I need to manually add the role assignment of Cosmos?
 If you're accsing the Cosmos DB using a service principal or your signed-in user credential, you need to assign data plane role assignment to either your service pricipal or the user. https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#concepts.
 
 However to configure such data plane role assignment is not supported [via Azure Portal](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#is-it-possible-to-manage-role-definitions-and-role-assignments-from-the-azure-portal) or [using terraform](https://github.com/hashicorp/terraform-provider-azurerm/issues/10817). So now we need to create such role assignments via CLI, Powershell, or ARM template.
