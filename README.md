@@ -17,10 +17,7 @@ variable "service_principal_id" {
   default     = ""
 }
 ```
-The service principal id is the `Object Id` you could find from the portal by:
-
-`Azure Active Directory` --> `Enterprise applications` --> .
-
+You could refer to [this](#how-to-find-the-service-principal-id) to find the service principal id.
 
 After this you could run the terraform commands to provision resources.
 ```shell
@@ -34,6 +31,22 @@ az account set --subscription <your-subscription-id>
 terraform init
 terraform apply
 ```
+
+### Create data plane role assignment for Cosmos to service principal or user
+```shell
+# List data plane role definitions
+az cosmosdb sql role definition list --account-name $accountName --resource-group $resourceGroupName
+
+# Create role assignment
+accountName='your-cosmos-account-name'
+resourceGroupName='your-resource-group'
+subscriptionId='your-subscripiton-id'
+principalId='the-principal-id-of-the-user-or-service-principal'
+contributorRoleDefinitionId='/subscriptions/'$subscriptionId'/resourceGroups/'$resourceGroupName'/providers/Microsoft.DocumentDB/databaseAccounts/'$accountName'/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002'
+
+az cosmosdb sql role assignment create --account-name $accountName --resource-group $resourceGroupName --scope "/" --principal-id $principalId --role-definition-id $contributorRoleDefinitionId
+```
+Check [here](#why-do-I-need-to-manually-add-the-role-assignment-of-cosmos) for more information.
 
 
 ## Copy the outputs from Terraform to Your IDE or Environment
@@ -59,3 +72,26 @@ The `credential-sp` profile requires a service principal, which is the same serv
 The `credential-other` profile tries to use credentials other than a token credential, such as SAS token or access key.
 
 Make sure you specify the corresponding profile before running the application.
+
+## Known issues
+### How to find the service principal id
+
+The service principal id is the `Object Id` you could find from the portal by:
+
+`Azure Active Directory` --> `Enterprise applications` --> `App applications`.
+
+![aad enterprise application](./images/aad_enterprise_applications.jpg)
+
+![aad_application_object_id](./images/aad_object_id.jpg)
+
+### Why the terraform can't run on Apple M1?
+
+`terraform-provider-azurecaf` doesn't have a darwin_arm64 package now.
+https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
+
+### Why do I need to manually add the role assignment of Cosmos
+If you're accsing the Cosmos DB using a service principal or your signed-in user credential, you need to assign data plane role assignment to either your service pricipal or the user. https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#concepts.
+
+However to configure such data plane role assignment is not supported [via Azure Portal](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#is-it-possible-to-manage-role-definitions-and-role-assignments-from-the-azure-portal) or [using terraform](https://github.com/hashicorp/terraform-provider-azurerm/issues/10817). So now we need to create such role assignments via CLI, Powershell, or ARM template.
+
+
