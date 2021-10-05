@@ -71,7 +71,16 @@ Check [here](#why-do-i-need-to-manually-add-the-role-assignment-of-cosmos) for m
   | .[]'  
   
 ```
+## Make sure 4.0.0-beta.1 is available locally
+Since this sample requires the 4.0.0-beta.1 dependencies, you could either import this sample project to the Intellij project of `azure-sdk-for-java` or install the dependencies to local maven.
+
+```shell
+mvn --fail-at-end --batch-mode --settings eng/settings.xml -Dmaven.wagon.httpconnectionManager.ttlSeconds=60 -T 2C -Dgpg.skip -DtrimStackTrace=false -pl com.azure.spring:azure-spring-cloud-actuator-autoconfigure,com.azure.spring:azure-spring-cloud-resourcemanager,com.azure.spring:azure-spring-cloud-starter,com.azure.spring:azure-spring-boot-starter-active-directory,com.azure.spring:azure-spring-boot-starter-cosmos,com.azure.spring:azure-spring-boot-starter-keyvault-secrets,com.azure.spring:azure-spring-boot-starter-servicebus-jms,com.azure.spring:azure-spring-boot-starter-storage,com.azure.spring:spring-cloud-azure-messaging,com.azure.spring:azure-spring-cloud-starter-actuator,com.azure.spring:azure-spring-cloud-starter-cache,com.azure.spring:spring-cloud-azure-stream-binder-servicebus-topic,com.azure.spring:spring-cloud-azure-stream-binder-servicebus-queue,com.azure.spring:spring-cloud-azure-stream-binder-eventhubs -am clean install
+```
+
+
 ## Run the Sample Application
+
 There are three profiles defined in this application, `credential-default`, `credential-sp`, and `credential-other`.
 
 - The `credential-default` profile will try to leverage your local developing environment, such as your credential stored in Intellij, VS Code, Azure CLI, Azure Powershell, etc.
