@@ -59,8 +59,9 @@ resource "azurerm_key_vault_access_policy" "service_principal" {
   ]
 }
 
-resource "azurerm_key_vault_secret" "storage_account_key" {
-  name         = "storage-account-key"
+resource "azurerm_key_vault_secret" "spring_storage_account_key" {
+  name         = "spring-storage-account-key"
   value        = var.storage_account_key
   key_vault_id = azurerm_key_vault.application.id
+  depends_on   = [azurerm_key_vault_access_policy.user]
 }

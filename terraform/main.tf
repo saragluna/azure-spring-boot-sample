@@ -59,11 +59,38 @@ module "key-vault" {
   location             = var.location
   service_principal_id = var.service_principal_id
 
-  storage_account_key = module.storage.azurerm_storage_account_key
+  storage_account_key = module.storage.storage_account_key
 }
 
 module "storage" {
   source               = "./modules/storage"
+  resource_group       = azurerm_resource_group.main.name
+  application_name     = var.application_name
+  environment          = local.environment
+  location             = var.location
+  service_principal_id = var.service_principal_id
+}
+
+module "cosmos" {
+  source               = "./modules/cosmos"
+  resource_group       = azurerm_resource_group.main.name
+  application_name     = var.application_name
+  environment          = local.environment
+  location             = var.location
+  service_principal_id = var.service_principal_id
+}
+
+module "event-hubs" {
+  source               = "./modules/event-hubs"
+  resource_group       = azurerm_resource_group.main.name
+  application_name     = var.application_name
+  environment          = local.environment
+  location             = var.location
+  service_principal_id = var.service_principal_id
+}
+
+module "service-bus" {
+  source               = "./modules/service-bus"
   resource_group       = azurerm_resource_group.main.name
   application_name     = var.application_name
   environment          = local.environment
