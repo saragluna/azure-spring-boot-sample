@@ -74,9 +74,9 @@ Check [here](#why-do-I-need-to-manually-add-the-role-assignment-of-cosmos) for m
 ## Run the Sample Application
 There are three profiles defined in this application, `credential-default`, `credential-sp`, and `credential-other`.
 
-The `credential-default` profile will try to leverage your local developing environment, such as your credential stored in Intellij, VS Code, Azure CLI, Azure Powershell, etc.
-The `credential-sp` profile requires a service principal, which is the same service principal you configured in the terraform variables.
-The `credential-other` profile tries to use credentials other than a token credential, such as SAS token or access key.
+- The `credential-default` profile will try to leverage your local developing environment, such as your credential stored in Intellij, VS Code, Azure CLI, Azure Powershell, etc.
+- The `credential-sp` profile requires a service principal, which is the same service principal you configured in the terraform variables.
+- The `credential-other` profile tries to use credentials other than a token credential, such as SAS token or access key.
 
 Make sure you specify the corresponding profile before running the application.
 
