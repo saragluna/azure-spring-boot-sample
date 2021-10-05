@@ -20,7 +20,14 @@ variable "service_principal_id" {
 You could refer to [this](#how-to-find-the-service-principal-id) to find the service principal id.
 
 After this you could run the terraform commands to provision resources.
+
+- Install [Terraform](https://www.terraform.io/) for your platform.
+- Install the [Azure CLI](https://aka.ms/nubesgen-install-az-cli) and authenticate using `az login`
+- In the terraform directory, initialize Terraform: `terraform init`
+- Apply the current Terraform configuration: `terraform apply`
+
 ```shell
+
 cd terraform
 
 # Login to azure-cli
@@ -93,5 +100,13 @@ https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
 If you're accsing the Cosmos DB using a service principal or your signed-in user credential, you need to assign data plane role assignment to either your service pricipal or the user. https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#concepts.
 
 However to configure such data plane role assignment is not supported [via Azure Portal](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#is-it-possible-to-manage-role-definitions-and-role-assignments-from-the-azure-portal) or [using terraform](https://github.com/hashicorp/terraform-provider-azurerm/issues/10817). So now we need to create such role assignments via CLI, Powershell, or ARM template.
+
+### How to add more terraform modules for other Azure resouces?
+With knowledge of these two components [terraform-provider-azurecaf](https://github.com/aztfmod/terraform-provider-azurecaf) and [terraform-provider-azurerm](https://github.com/hashicorp/terraform-provider-azurerm) will help you easily write your own terraform scripts. The `terraform-provider-azurecaf` is used to create names for Azure resouces, and the `terraform-provider-azurerm` is used to define the actual resouces. 
+
+- Refer to this [reference](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs) to learn the supported arguments and output of each resource type.
+- Use Visual Studio Code and install the [Terraform](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform) and [Azure Terraform](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureterraform) extensions.
+- Refer to https://github.com/aztfmod/terraform-provider-azurecaf to see [supported resources](https://github.com/aztfmod/terraform-provider-azurecaf#resource-status).
+- Refer to https://github.com/hashicorp/terraform-provider-azurerm to see whether is a feature supported.
 
 
