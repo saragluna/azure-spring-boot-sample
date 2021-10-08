@@ -128,6 +128,6 @@ With knowledge of these two components [terraform-provider-azurecaf](https://git
 
 https://github.com/hashicorp/terraform-provider-azurerm/issues/7880
 
-If you run `terraform apply` immediately after `terraform destroy`, it will complains the storage container can't be found. Just wait a couple minutes to run `terraform apply` will solve this problem.
+If you run `terraform apply` immediately after `terraform destroy`, it will complain the storage container can't be found. Just wait a couple minutes to run `terraform apply` will solve this problem.
 
 
