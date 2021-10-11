@@ -100,7 +100,7 @@ terraform destroy
 
 The service principal id is the `Object Id` you could find from the portal by:
 
-`Azure Active Directory` --> `Enterprise applications` --> `App applications`.
+`Azure Active Directory` --> `Enterprise applications` --> `App applications`, and then search your service principal created before. 
 
 ![aad enterprise application](./images/aad_enterprise_applications.jpg)
 
