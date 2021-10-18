@@ -19,3 +19,20 @@ storage-blob-resource-name: azure-blob://${STORAGE_CONTAINER_NAME}/${blob-name}
 storage-file-resource-name: azure-file://${STORAGE_SHARE_NAME}/${file-name}
 blob-name: testblob.txt
 file-name: testfile.txt
+spring:
+  cloud:
+    azure:
+      client:
+        logging:
+          level: none
+      keyvault:
+        secret:
+          client:
+            logging:
+              level: basic
+      storage:
+        blob:
+          client:
+            logging:
+              level: headers
+
