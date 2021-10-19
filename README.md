@@ -17,7 +17,7 @@ variable "service_principal_id" {
   default     = ""
 }
 ```
-You could refer to [this](#how-to-find-the-service-principal-id) to find the service principal id.
+You could refer to [this](#known-issues) to find the service principal id.
 
 After this you could run the terraform commands to provision resources.
 
@@ -53,7 +53,7 @@ contributorRoleDefinitionId='/subscriptions/'$subscriptionId'/resourceGroups/'$r
 
 az cosmosdb sql role assignment create --account-name $accountName --resource-group $resourceGroupName --scope "/" --principal-id $principalId --role-definition-id $contributorRoleDefinitionId
 ```
-Check [here](#why-do-i-need-to-manually-add-the-role-assignment-of-cosmos) for more information.
+Check [here](#known-issues) for more information.
 
 
 ## Copy the outputs from Terraform to Your IDE or Environment
@@ -97,38 +97,56 @@ terraform destroy
 ```
 
 ## Known issues
-### How to find the service principal id?
 
-The service principal id is the `Object Id` you could find from the portal by:
+<details>
+  <summary>How to find the service principal id?</summary>
+  
+  The service principal id is the `Object Id` you could find from the portal by:
+  
+  `Azure Active Directory` --> `Enterprise applications` --> `App applications`, and then search your service principal created before. 
+  
+  ![aad enterprise application](./images/aad_enterprise_applications.jpg)
+  
+  ![aad_application_object_id](./images/aad_object_id.jpg)
+</details>
 
-`Azure Active Directory` --> `Enterprise applications` --> `App applications`, and then search your service principal created before. 
+<details>
+  <summary>Why the terraform can't run on Apple M1?</summary>  
+  
+  `terraform-provider-azurecaf` doesn't have a darwin_arm64 package now. https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
+</details>  
 
-![aad enterprise application](./images/aad_enterprise_applications.jpg)
 
-![aad_application_object_id](./images/aad_object_id.jpg)
+<details>
+  <summary>Why do I need to manually add the role assignment of Cosmos?</summary>  
+  
+  If you're accsing the Cosmos DB using a service principal or your signed-in user credential, you need to assign data plane role assignment to either your service pricipal or the user. 
+  https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#concepts. 
+  
+  However to configure such data plane role assignment is not supported [via Azure Portal](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#is-it-possible-to-manage-role-definitions-and-role-assignments-from-the-azure-portal) or [using terraform](https://github.com/hashicorp/terraform-provider-azurerm/issues/10817). So now we need to create such role assignments via CLI, Powershell, or ARM template.
+</details> 
 
-### Why the terraform can't run on Apple M1?
-
-`terraform-provider-azurecaf` doesn't have a darwin_arm64 package now.
-https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
-
-### Why do I need to manually add the role assignment of Cosmos?
-If you're accsing the Cosmos DB using a service principal or your signed-in user credential, you need to assign data plane role assignment to either your service pricipal or the user. https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#concepts.
-
-However to configure such data plane role assignment is not supported [via Azure Portal](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/cosmos-db/how-to-setup-rbac.md#is-it-possible-to-manage-role-definitions-and-role-assignments-from-the-azure-portal) or [using terraform](https://github.com/hashicorp/terraform-provider-azurerm/issues/10817). So now we need to create such role assignments via CLI, Powershell, or ARM template.
-
-### How to add more terraform modules for other Azure resouces?
-With knowledge of these two components [terraform-provider-azurecaf](https://github.com/aztfmod/terraform-provider-azurecaf) and [terraform-provider-azurerm](https://github.com/hashicorp/terraform-provider-azurerm) will help you easily write your own terraform scripts. The `terraform-provider-azurecaf` is used to create names for Azure resouces, and the `terraform-provider-azurerm` is used to define the actual resouces. 
+<details>
+  <summary>How to add more terraform modules for other Azure resouces?</summary>  
+  
+  With knowledge of these two components [terraform-provider-azurecaf](https://github.com/aztfmod/terraform-provider-azurecaf) and [terraform-provider-azurerm](https://github.com/hashicorp/terraform-provider-azurerm) will help you easily write your own terraform scripts. The `terraform-provider-azurecaf` is used to create names for Azure resouces, and the `terraform-provider-azurerm` is used to define the actual resouces. 
 
 - Refer to this [reference](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs) to learn the supported arguments and output of each resource type.
 - Use Visual Studio Code and install the [Terraform](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform) and [Azure Terraform](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureterraform) extensions.
 - Refer to https://github.com/aztfmod/terraform-provider-azurecaf to see [supported resources](https://github.com/aztfmod/terraform-provider-azurecaf#resource-status).
 - Refer to https://github.com/hashicorp/terraform-provider-azurerm to see whether is a feature supported.
+</details> 
 
-### Fail to provision storage after destroy
 
-https://github.com/hashicorp/terraform-provider-azurerm/issues/7880
+<details>
+  <summary>Fail to provision storage after destroy</summary>  
+  
+  https://github.com/hashicorp/terraform-provider-azurerm/issues/7880
+  
+  If you run `terraform apply` immediately after `terraform destroy`, it will complain the storage container can't be found. Just wait a couple minutes to run `terraform apply` will solve this problem.
+</details> 
 
-If you run `terraform apply` immediately after `terraform destroy`, it will complain the storage container can't be found. Just wait a couple minutes to run `terraform apply` will solve this problem.
+
+
 
 
