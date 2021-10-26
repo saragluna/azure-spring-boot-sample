@@ -41,12 +41,13 @@ terraform apply
 
 ### Create data plane role assignment for Cosmos to service principal or user
 ```shell
+accountName='your-cosmos-account-name'
+resourceGroupName='your-resource-group'
+
 # List data plane role definitions
 az cosmosdb sql role definition list --account-name $accountName --resource-group $resourceGroupName
 
 # Create role assignment
-accountName='your-cosmos-account-name'
-resourceGroupName='your-resource-group'
 subscriptionId='your-subscripiton-id'
 principalId='the-principal-id-of-the-user-or-service-principal'
 contributorRoleDefinitionId='/subscriptions/'$subscriptionId'/resourceGroups/'$resourceGroupName'/providers/Microsoft.DocumentDB/databaseAccounts/'$accountName'/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002'
