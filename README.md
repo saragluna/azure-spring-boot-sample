@@ -1,4 +1,4 @@
-# Spring Cloud for Azure 4.0 Sample
+# Spring Cloud Azure 4.0 Sample
 This sample is used to demonstrate how to use the Spring Cloud for Azure 4.0 starter. It contains two parts, the first part is to use Terraform to provision Azure resources and the second is to use the starter to try with Service client beans auto-configuration.
 
 ## Provision the Resources
