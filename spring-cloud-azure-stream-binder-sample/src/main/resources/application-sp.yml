@@ -1,0 +1,87 @@
+spring:
+  cloud:
+    azure:
+      credential:
+        client-id: ${SPRING_CLIENT_ID}
+        client-secret: ${SPRING_CLIENT_SECRET}
+      profile:
+        tenant-id: ${SPRING_TENANT_ID}
+      eventhubs:
+        namespace: ehn-xiada-sample-dev
+        processor:
+          checkpoint-store:
+            account-name: stxiadasampledev
+            container-name: checkpointer-1
+      servicebus:
+        namespace: sb-xiada-sample-dev
+        consumer:
+          session-aware: true
+    stream:
+      function:
+        definition: supply;transform1;transform2;consume
+      bindings:
+        supply-out-0:
+          destination: eventhub-1
+        transform1-in-0:
+          destination: eventhub-1
+          group: $Default
+        transform1-out-0:
+          destination: sb-queue-1
+          binder: binder-sb-queue
+        transform2-in-0:
+          binder: binder-sb-queue
+          destination: sb-queue-1
+        transform2-out-0:
+          binder: binder-sb-topic
+          destination: sb-topic-1
+        consume-in-0:
+          binder: binder-sb-topic
+          destination: sb-topic-1
+          group: sb-topic-1-sub-1
+      binders:
+        binder-eh:
+          type: eventhub
+          default-candidate: true
+#          environment:
+#            spring:
+#              cloud:
+#                azure:
+#                  eventhubs:
+#                    namespace: ehn-xiada-sample-dev
+#                    processor:
+#                      checkpoint-store:
+#                        account-name: stxiadasampledev
+#                        container-name: checkpointer-1
+        binder-sb-queue:
+          type: servicebus-queue
+          default-candidate: false
+        binder-sb-topic:
+          type: servicebus-topic
+          default-candidate: false
+
+      eventhub:
+        bindings:
+#          supply-out-0:
+#            producer:
+#              event-hub-name: eventhub-1
+#              connection-string:
+          transform1-in-0:
+#            consumer:
+#              processor:
+#                event-hub-name: eventhub-1
+#                consumer-group: $Default
+#                connection-string:
+              checkpoint:
+                mode: MANUAL
+      servicebus:
+        queue:
+          bindings:
+            transform2-in-0:
+              consumer:
+                checkpoint-mode: MANUAL
+
+
+
+      poller:
+        initial-delay: 0
+        fixed-delay: 10000

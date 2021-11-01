@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. -->
+<!-- Licensed under the MIT License. -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>spring-cloud-azure-samples</artifactId>
+    <groupId>com.azure.spring</groupId>
+    <version>1.0.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>spring-cloud-azure-stream-binder-sample</artifactId>
+
+  <properties>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.azure.spring</groupId>
+      <artifactId>spring-cloud-azure-stream-binder-eventhubs</artifactId>
+      <version>4.0.0-beta.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.azure.spring</groupId>
+      <artifactId>spring-cloud-azure-stream-binder-servicebus-queue</artifactId>
+      <version>4.0.0-beta.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.azure.spring</groupId>
+      <artifactId>spring-cloud-azure-stream-binder-servicebus-topic</artifactId>
+      <version>4.0.0-beta.1</version>
+    </dependency>
+  </dependencies>
+
+</project>

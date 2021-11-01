@@ -1,0 +1,17 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    azure-cosmos:
+      enabled: true
+logging:
+  level:
+    com.azure:
+      core:
+        amqp: WARN
+      messaging:
+        servicebus: WARN
+        eventhubs: WARN
+      identity: WARN
+
