@@ -116,3 +116,8 @@ output "storage_share_name" {
   value       = module.storage.storage_share_name
   description = "The Azure Storage file share name."
 }
+
+output "storage_queue_name" {
+  value       = module.storage.storage_queue_name
+  description = "The Azure Storage queue name."
+}

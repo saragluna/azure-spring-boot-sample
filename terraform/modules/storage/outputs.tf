@@ -21,5 +21,10 @@ output "storage_container_name" {
 
 output "storage_share_name" {
   value       = azurerm_storage_share.application.name
-  description = "The Azure Stroage share name name."
+  description = "The Azure Storage share name name."
+}
+
+output "storage_queue_name" {
+  value       = azurerm_storage_queue.application.name
+  description = "The Azure Storage queue name."
 }

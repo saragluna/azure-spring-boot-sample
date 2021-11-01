@@ -18,6 +18,6 @@ variable "location" {
 
 variable "service_principal_id" {
   type        = string
-  description = "The Azure Service Principal id or object_id to assign role to"
+  description = "The Azure Service Principal object_id to assign role to, not the application id here"
   default     = ""
 }
