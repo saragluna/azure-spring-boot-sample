@@ -16,7 +16,7 @@
   <packaging>jar</packaging>
 
   <name>Azure Spring Boot Starter Sample</name>
-  <description>Saragluna Sample project for Azure Key Vault Secrets Starter</description>
+  <description>Sample project for Azure Key Vault Secrets Starter</description>
   <url>https://github.com/Azure/azure-sdk-for-java</url>
 
   <properties>
