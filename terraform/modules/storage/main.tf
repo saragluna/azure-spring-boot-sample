@@ -64,4 +64,14 @@ resource "azurerm_storage_share" "application" {
   storage_account_name  = azurerm_storage_account.application.name
 }
 
+resource "azurecaf_name" "storage_queue" {
+  name          = var.application_name
+  resource_type = "azurerm_storage_queue"
+  suffixes      = [var.environment]
+}
+
+resource "azurerm_storage_queue" "application" {
+  name                  = azurecaf_name.storage_queue.result
+  storage_account_name  = azurerm_storage_account.application.name
+}
 

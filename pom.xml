@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.5.0</version> <!-- {x-version-update;org.springframework.boot:spring-boot-starter-parent;external_dependency} -->
+    <version>2.5.4</version> <!-- {x-version-update;org.springframework.boot:spring-boot-starter-parent;external_dependency} -->
   </parent>
 
   <groupId>com.azure.spring</groupId>
@@ -16,20 +16,21 @@
   <packaging>jar</packaging>
 
   <name>Azure Spring Boot Starter Sample</name>
-  <description>Sample project for Azure Key Vault Secrets Starter</description>
+  <description>Saragluna Sample project for Azure Key Vault Secrets Starter</description>
   <url>https://github.com/Azure/azure-sdk-for-java</url>
 
   <properties>
     <azure.spring.version>4.0.0-beta.1</azure.spring.version>
-    <azure.cosmos.version>4.18.0</azure.cosmos.version>
-    <azure.app.configuration.version>1.2.1</azure.app.configuration.version>
-    <azure.servicebus.version>7.4.0</azure.servicebus.version>
-    <azure.eventhubs.version>5.10.0</azure.eventhubs.version>
-    <azure.keyvault.secret.version>4.3.2</azure.keyvault.secret.version>
-    <azure.keyvault.certificate.version>4.2.2</azure.keyvault.certificate.version>
-    <azure.storage.blob.version>12.13.0</azure.storage.blob.version>
-    <azure.storage.file.version>12.10.0</azure.storage.file.version>
-    <azure.storage.queue.version>12.10.0</azure.storage.queue.version>
+    <!--<azure.spring.data.cosmos.version>3.13.0</azure.spring.data.cosmos.version>-->
+    <azure.cosmos.version>4.20.0</azure.cosmos.version>
+    <azure.app.configuration.version>1.2.3</azure.app.configuration.version>
+    <azure.servicebus.version>7.4.1</azure.servicebus.version>
+    <azure.eventhubs.version>5.10.1</azure.eventhubs.version>
+    <azure.keyvault.secret.version>4.3.4</azure.keyvault.secret.version>
+    <azure.keyvault.certificate.version>4.2.4</azure.keyvault.certificate.version>
+    <azure.storage.blob.version>12.14.1</azure.storage.blob.version>
+    <azure.storage.file.version>12.11.1</azure.storage.file.version>
+    <azure.storage.queue.version>12.11.1</azure.storage.queue.version>
   </properties>
 
   <dependencies>
