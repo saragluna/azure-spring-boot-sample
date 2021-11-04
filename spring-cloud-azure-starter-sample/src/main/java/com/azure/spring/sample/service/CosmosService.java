@@ -23,12 +23,14 @@ public class CosmosService implements AzureService {
     @Autowired(required = false)
     private CosmosClient cosmosClient;
 
-    @Value("${COSMOS_DATABASE_NAME}")
+    @Value("${cosmos.database.name}")
     private String databaseName;
+
+    @Value("${cosmos.container.name}")
+    private String containerName;
 
     @Override
     public void run() {
-        String containerName = "my-container";
         cosmosClient.getDatabase(databaseName).createContainerIfNotExists(containerName, "/lastName");
         User item = User.randomUser();
         CosmosContainer container = cosmosClient.getDatabase(databaseName).getContainer(containerName);

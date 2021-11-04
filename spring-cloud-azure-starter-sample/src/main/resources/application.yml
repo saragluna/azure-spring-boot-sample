@@ -19,7 +19,6 @@ storage-blob-resource-name: azure-blob://${STORAGE_CONTAINER_NAME}/${blob-name}
 storage-file-resource-name: azure-file://${STORAGE_SHARE_NAME}/${file-name}
 blob-name: testblob.txt
 file-name: testfile.txt
-storage-queue-name: ${STORAGE_QUEUE_NAME}
 spring:
   cloud:
     azure:

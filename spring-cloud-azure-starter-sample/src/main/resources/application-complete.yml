@@ -1,0 +1,105 @@
+spring:
+  cloud:
+    azure:
+      client:
+        logging:
+          level:
+      profile:
+        tenant-id:
+        environment:
+          active-directory-endpoint:
+        cloud:
+      proxy:
+        authentication-type:
+      retry:
+        backoff:
+          delay:
+          max-delay:
+      credential:
+        client-secret:
+      cosmos:
+        database: ${COSMOS_DATABASE_NAME}
+        endpoint: ${COSMOS_ENDPOINT}
+        proxy:
+          non-proxy-hosts:
+        client:
+          application-id:
+        profile:
+          cloud:
+        credential:
+          client-certificate-password:
+      keyvault:
+        secret:
+          proxy:
+            non-proxy-hosts:
+            hostname:
+          client:
+            application-id:
+          profile:
+            cloud:
+          credential:
+            client-certificate-password:
+          property-source-enabled: true
+          endpoint: ${KEY_VAULT_URI}
+          retry:
+            backoff:
+              max-delay:
+            retry-after-header:
+          resource:
+            region:
+        certificate:
+          enabled: false
+      eventhubs:
+        consumer:
+          consumer-group: ${EVENTHUBS_CONSUMER_GROUP_NAME}
+        event-hub-name: ${EVENTHUBS_EVENTHUB_NAME}
+        namespace: ${EVENTHUBS_NAMESPACE_NAME}
+        proxy:
+          hostname:
+        client:
+          application-id:
+        profile:
+          cloud:
+        credential:
+          client-certificate-password:
+        retry:
+          backoff:
+            delay:
+      servicebus:
+        producer:
+          queue-name: ${SERVICEBUS_QUEUE_NAME}
+          connection-string:
+          credential:
+            client-id:
+            client-certificate-password:
+          proxy:
+            authentication-type:
+          profile:
+            cloud:
+          retry:
+            backoff:
+              multiplier:
+        consumer:
+          queue-name: ${SERVICEBUS_QUEUE_NAME}
+        namespace: ${SERVICEBUS_NAMESPACE_NAME}
+      storage:
+        blob:
+          account-name: ${STORAGE_ACCOUNT_NAME}
+          container-name: ${STORAGE_CONTAINER_NAME}
+        fileshare:
+          enabled: false
+          client:
+            headers:
+          proxy:
+            authentication-type:
+          credential:
+            client-certificate-path:
+          profile:
+            cloud:
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    azure-cosmos:
+      enabled: true

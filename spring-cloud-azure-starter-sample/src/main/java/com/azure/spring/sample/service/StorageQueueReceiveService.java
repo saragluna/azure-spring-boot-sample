@@ -23,7 +23,7 @@ public class StorageQueueReceiveService implements AzureService {
     @Autowired(required = false)
     private QueueServiceClient queueServiceClient;
 
-    @Value("${storage-queue-name}")
+    @Value("${storage.queue.name}")
     private String queueName;
     
     @Override
