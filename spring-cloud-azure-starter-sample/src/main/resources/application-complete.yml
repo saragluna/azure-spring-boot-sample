@@ -4,19 +4,26 @@ spring:
       client:
         logging:
           level:
+        application-id:
       profile:
         tenant-id:
         environment:
           active-directory-endpoint:
-        cloud:
+        cloud: Azure
       proxy:
-        authentication-type:
+        authentication-type: http
+        hostname:
       retry:
         backoff:
           delay:
           max-delay:
+        max-attempts:
+        timeout:
       credential:
         client-secret:
+        client-id: sp1
+        password:
+        managed-identity-client-id:
       cosmos:
         database: ${COSMOS_DATABASE_NAME}
         endpoint: ${COSMOS_ENDPOINT}
@@ -27,7 +34,8 @@ spring:
         profile:
           cloud:
         credential:
-          client-certificate-password:
+          client-id: sp2
+          client-secret:
       keyvault:
         secret:
           proxy:
@@ -45,19 +53,29 @@ spring:
             backoff:
               max-delay:
             retry-after-header:
+            retry-after-time-unit: days
           resource:
             region:
+          enabled: false
         certificate:
           enabled: false
       eventhubs:
         consumer:
+          credential:
+            client-id:
+            client-secret:
           consumer-group: ${EVENTHUBS_CONSUMER_GROUP_NAME}
+          namespace:
+        producer:
+          namespace:
+          connection-string:
         event-hub-name: ${EVENTHUBS_EVENTHUB_NAME}
         namespace: ${EVENTHUBS_NAMESPACE_NAME}
         proxy:
           hostname:
         client:
           application-id:
+          transport-type:
         profile:
           cloud:
         credential:

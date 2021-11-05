@@ -31,7 +31,6 @@ public class CosmosService implements AzureService {
 
     @Override
     public void run() {
-        cosmosClient.getDatabase(databaseName).createContainerIfNotExists(containerName, "/lastName");
         User item = User.randomUser();
         CosmosContainer container = cosmosClient.getDatabase(databaseName).getContainer(containerName);
         container.createItem(item);
