@@ -2,9 +2,19 @@ spring:
   cloud:
     azure:
       client:
-        logging:
-          level:
         application-id:
+        http:
+          read-timeout:
+          logging:
+            level:
+            allowed-header-names:
+            allowed-query-param-names:
+          write-timeout:
+          connect-timeout:
+          connection-idle-timeout:
+          maximum-connection-pool-size:
+        amqp:
+          transport-type:
       profile:
         tenant-id:
         environment:
@@ -13,7 +23,12 @@ spring:
       proxy:
         authentication-type: http
         hostname:
+        http:
+          non-proxy-hosts:
       retry:
+        http:
+          retry-after-header:
+          retry-after-time-unit: days
         backoff:
           delay:
           max-delay:
@@ -43,6 +58,9 @@ spring:
             hostname:
           client:
             application-id:
+            write-timeout:
+            connection-idle-timeout:
+            connect-timeout:
           profile:
             cloud:
           credential:
@@ -58,6 +76,7 @@ spring:
             region:
           enabled: false
         certificate:
+          endpoint: ${KEY_VAULT_URI}
           enabled: false
       eventhubs:
         consumer:
@@ -66,6 +85,7 @@ spring:
             client-secret:
           consumer-group: ${EVENTHUBS_CONSUMER_GROUP_NAME}
           namespace:
+          connection-string: ${AZURE_EVENT_HUBS_CONNECTION_STRING}
         producer:
           namespace:
           connection-string:
