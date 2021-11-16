@@ -38,3 +38,13 @@ resource "azurerm_cosmosdb_sql_database" "db" {
   account_name        = azurerm_cosmosdb_account.application.name
   throughput          = 400
 }
+
+resource "azurerm_cosmosdb_sql_container" "application" {
+  name                  = "users"
+  resource_group_name   = azurerm_cosmosdb_account.application.resource_group_name
+  account_name          = azurerm_cosmosdb_account.application.name
+  database_name         = azurerm_cosmosdb_sql_database.db.name
+  partition_key_path    = "/id"
+  partition_key_version = 1
+  throughput            = 400
+}

@@ -4,7 +4,7 @@
 # }
 
 output "resource_group" {
-  value       = azurecaf_name.resource_group.name
+  value       = azurecaf_name.resource_group.result
   description = "The resource group."
 }
 
@@ -22,6 +22,11 @@ output "cosmos_endpoint" {
 output "cosmos_database_name" {
   value       = module.cosmos.cosmos_database_name
   description = "The Azure Cosmos DB sql database name."
+}
+
+output "cosmos_container_name" {
+  value       = module.cosmos.cosmos_container_name
+  description = "The Azure Cosmos DB sql container name."
 }
 
 output "cosmos_key" {
