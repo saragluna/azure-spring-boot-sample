@@ -20,9 +20,9 @@ import java.util.List;
  */
 @Service
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class EventHubProducerService implements AzureService {
+public class EventHubsProducerService implements AzureService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventHubProducerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventHubsProducerService.class);
 
     @Autowired(required = false)
     private EventHubProducerClient producerClient;

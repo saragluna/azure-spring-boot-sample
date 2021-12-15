@@ -15,7 +15,7 @@ spring:
       servicebus:
         namespace: sb-xiada-sample-dev
         consumer:
-          session-aware: true
+          session-enabled: true
     stream:
       function:
         definition: supply;transform1;transform2;consume
@@ -71,8 +71,8 @@ spring:
 #                event-hub-name: eventhub-1
 #                consumer-group: $Default
 #                connection-string:
-              checkpoint:
-                mode: MANUAL
+            checkpoint:
+              mode: MANUAL
       servicebus:
         queue:
           bindings:

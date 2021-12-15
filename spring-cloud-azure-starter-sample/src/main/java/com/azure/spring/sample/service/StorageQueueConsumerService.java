@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class StorageQueueReceiveService implements AzureService {
+public class StorageQueueConsumerService implements AzureService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StorageQueueReceiveService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StorageQueueConsumerService.class);
     
     @Autowired(required = false)
     private QueueServiceClient queueServiceClient;
@@ -40,6 +40,6 @@ public class StorageQueueReceiveService implements AzureService {
 
     @Override
     public String getServiceName() {
-        return "Storage Blob";
+        return "Storage Queue Consumer";
     }
 }

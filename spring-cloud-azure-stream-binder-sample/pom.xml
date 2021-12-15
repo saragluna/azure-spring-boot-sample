@@ -14,24 +14,14 @@
 
   <artifactId>spring-cloud-azure-stream-binder-sample</artifactId>
 
-  <properties>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.azure.spring</groupId>
       <artifactId>spring-cloud-azure-stream-binder-eventhubs</artifactId>
-      <version>4.0.0-beta.1</version>
     </dependency>
     <dependency>
       <groupId>com.azure.spring</groupId>
-      <artifactId>spring-cloud-azure-stream-binder-servicebus-queue</artifactId>
-      <version>4.0.0-beta.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.azure.spring</groupId>
-      <artifactId>spring-cloud-azure-stream-binder-servicebus-topic</artifactId>
-      <version>4.0.0-beta.1</version>
+      <artifactId>spring-cloud-azure-stream-binder-servicebus</artifactId>
     </dependency>
   </dependencies>
 

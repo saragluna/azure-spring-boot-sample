@@ -1,53 +1,65 @@
+# This is the yaml file to toy with all Spring Cloud Azure properties
 spring:
   cloud:
     azure:
       client:
-        application-id:
-        http:
-          read-timeout:
-          logging:
-            level:
-            allowed-header-names:
-            allowed-query-param-names:
-          write-timeout:
-          connect-timeout:
-          connection-idle-timeout:
-          maximum-connection-pool-size:
         amqp:
           transport-type:
+        application-id:
+        http:
+          connect-timeout:
+          connection-idle-timeout:
+          logging:
+            allowed-header-names:
+            allowed-query-param-names:
+            level:
+          maximum-connection-pool-size:
+          read-timeout:
+          response-timeout:
+          write-timeout:
       profile:
-        tenant-id:
         environment:
-          active-directory-endpoint:
-        cloud: Azure
+          active-directory-endpoint: default
+        subscription-id:
+        tenant-id:
+        cloud: azure_china
       proxy:
-        authentication-type: http
+        authentication-type:
         hostname:
         http:
           non-proxy-hosts:
       retry:
         http:
           retry-after-header:
-          retry-after-time-unit: days
+          retry-after-time-unit:
         backoff:
           delay:
           max-delay:
+          multiplier:
         max-attempts:
         timeout:
       credential:
+        client-id:
         client-secret:
-        client-id: sp1
-        password:
         managed-identity-client-id:
+        password:
+        client-certificate-password:
+        client-certificate-path:
       cosmos:
         database: ${COSMOS_DATABASE_NAME}
         endpoint: ${COSMOS_ENDPOINT}
+        consistency-level: eventual
+        connection-mode: direct
+
         proxy:
           non-proxy-hosts:
+          username:
         client:
           application-id:
         profile:
-          cloud:
+          cloud: other
+          environment:
+            active-directory-endpoint:
         credential:
           client-id: sp2
           client-secret:
@@ -62,7 +74,8 @@ spring:
             connection-idle-timeout:
             connect-timeout:
           profile:
-            cloud:
+            environment:
+              active-directory-endpoint: abc
           credential:
             client-certificate-password:
           property-source-enabled: true
@@ -77,19 +90,23 @@ spring:
           enabled: false
         certificate:
           endpoint: ${KEY_VAULT_URI}
-          enabled: false
+          enabled:
       eventhubs:
         consumer:
           credential:
             client-id:
             client-secret:
-          consumer-group: ${EVENTHUBS_CONSUMER_GROUP_NAME}
           namespace:
+          consumer-group:
           connection-string: ${AZURE_EVENT_HUBS_CONNECTION_STRING}
+          prefetch-count:
         producer:
           namespace:
           connection-string:
         event-hub-name: ${EVENTHUBS_EVENTHUB_NAME}
+        processor:
+          checkpoint-store:
+            create-container-if-not-exists:
         namespace: ${EVENTHUBS_NAMESPACE_NAME}
         proxy:
           hostname:
@@ -105,7 +122,6 @@ spring:
             delay:
       servicebus:
         producer:
-          queue-name: ${SERVICEBUS_QUEUE_NAME}
           connection-string:
           credential:
             client-id:
@@ -117,8 +133,11 @@ spring:
           retry:
             backoff:
               multiplier:
+          entity-name: ${SERVICEBUS_QUEUE_NAME}
         consumer:
-          queue-name: ${SERVICEBUS_QUEUE_NAME}
+          entity-name: ${SERVICEBUS_QUEUE_NAME}
+          entity-type: queue
+          session-enabled: true
         namespace: ${SERVICEBUS_NAMESPACE_NAME}
       storage:
         blob:
@@ -141,3 +160,5 @@ management:
   health:
     azure-cosmos:
       enabled: true
+server:
+  address:

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurecaf = {
       source = "aztfmod/azurecaf"
-      version = "1.2.6"
+      version = "1.2.10"
     }
   }
 }
@@ -75,3 +75,14 @@ resource "azurerm_storage_queue" "application" {
   storage_account_name  = azurerm_storage_account.application.name
 }
 
+resource "azurerm_role_assignment" "storage_queue_contributor" {
+  scope                = azurerm_storage_account.application.id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = var.service_principal_id
+}
+
+resource "azurerm_role_assignment" "storage_queue_contributor_user" {
+  scope                = azurerm_storage_account.application.id
+  role_definition_name = "Storage Queue Data Contributor"
+  principal_id         = data.azurerm_client_config.current.object_id
+}

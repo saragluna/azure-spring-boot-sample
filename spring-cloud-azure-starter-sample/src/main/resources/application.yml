@@ -1,3 +1,44 @@
+spring:
+  cloud:
+    azure:
+      cosmos:
+        enabled: true
+        database: ${COSMOS_DATABASE_NAME}
+        endpoint: ${COSMOS_ENDPOINT}
+      keyvault:
+        secret:
+          enabled: true
+          endpoint: ${KEY_VAULT_URI}
+          property-source-enabled: true
+        certificate:
+          enabled: false
+          endpoint: ${KEY_VAULT_URI}
+      eventhubs:
+        enabled: true
+        namespace: ${EVENTHUBS_NAMESPACE_NAME}
+        event-hub-name: ${EVENTHUBS_EVENTHUB_NAME}
+        consumer:
+          consumer-group: ${EVENTHUBS_CONSUMER_GROUP_NAME}
+      servicebus:
+        enabled: true
+        namespace: ${SERVICEBUS_NAMESPACE_NAME}
+        producer:
+          entity-name: ${SERVICEBUS_QUEUE_NAME}
+          entity-type: queue
+        consumer:
+          entity-type: queue
+          entity-name: ${SERVICEBUS_QUEUE_NAME}
+      storage:
+        blob:
+          enabled: true
+          account-name: ${STORAGE_ACCOUNT_NAME}
+          container-name: ${STORAGE_CONTAINER_NAME}
+        fileshare:
+          enabled: false
+          account-name: ${STORAGE_ACCOUNT_NAME}
+        queue:
+          enabled: true
+          account-name: ${STORAGE_ACCOUNT_NAME}
 management:
   endpoint:
     health:
@@ -5,6 +46,7 @@ management:
   health:
     azure-cosmos:
       enabled: true
+
 logging:
   level:
     com:
@@ -19,20 +61,5 @@ storage-blob-resource-name: azure-blob://${STORAGE_CONTAINER_NAME}/${blob-name}
 storage-file-resource-name: azure-file://${STORAGE_SHARE_NAME}/${file-name}
 blob-name: testblob.txt
 file-name: testfile.txt
-spring:
-  cloud:
-    azure:
-      client:
-        logging:
-          level: none
-      keyvault:
-        secret:
-          client:
-            logging:
-              level: basic
-      storage:
-        blob:
-          client:
-            logging:
-              level: headers
+
 

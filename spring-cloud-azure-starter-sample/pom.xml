@@ -14,75 +14,51 @@
 
   <artifactId>spring-cloud-azure-starter-sample</artifactId>
 
-  <properties>
-    <azure.spring.version>4.0.0-beta.1</azure.spring.version>
-    <azure.cosmos.version>4.20.0</azure.cosmos.version>
-    <azure.app.configuration.version>1.2.3</azure.app.configuration.version>
-    <azure.servicebus.version>7.4.1</azure.servicebus.version>
-    <azure.eventhubs.version>5.10.1</azure.eventhubs.version>
-    <azure.keyvault.secret.version>4.3.4</azure.keyvault.secret.version>
-    <azure.keyvault.certificate.version>4.2.4</azure.keyvault.certificate.version>
-    <azure.storage.blob.version>12.14.1</azure.storage.blob.version>
-    <azure.storage.file.version>12.11.1</azure.storage.file.version>
-    <azure.storage.queue.version>12.11.1</azure.storage.queue.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.azure.spring</groupId>
       <artifactId>spring-cloud-azure-starter</artifactId>
-      <version>${azure.spring.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure.spring</groupId>
       <artifactId>spring-cloud-azure-starter-actuator</artifactId>
-      <version>${azure.spring.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-cosmos</artifactId>
-      <version>${azure.cosmos.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-data-appconfiguration</artifactId>
-      <version>${azure.app.configuration.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-messaging-servicebus</artifactId>
-      <version>${azure.servicebus.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-messaging-eventhubs</artifactId>
-      <version>${azure.eventhubs.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-security-keyvault-certificates</artifactId>
-      <version>${azure.keyvault.certificate.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-security-keyvault-secrets</artifactId>
-      <version>${azure.keyvault.secret.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-storage-blob</artifactId>
-      <version>${azure.storage.blob.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-storage-file-share</artifactId>
-      <version>${azure.storage.file.version}</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-storage-queue</artifactId>
-      <version>${azure.storage.queue.version}</version>
     </dependency>
 
     <dependency>

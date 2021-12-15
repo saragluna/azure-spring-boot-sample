@@ -18,9 +18,9 @@ import java.time.Duration;
  *
  */
 @Service
-public class EventHubConsumerService implements AzureService {
+public class EventHubsConsumerService implements AzureService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventHubConsumerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventHubsConsumerService.class);
 
     @Autowired(required = false)
     private EventHubConsumerClient consumerClient;
