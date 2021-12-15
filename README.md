@@ -80,6 +80,8 @@ terraform output -json | jq -r ". as $in | keys[] | ($in[.].value | tostring) as
 
 ## Run the Sample Application
 
+Go to the `spring-cloud-azure-starter-sample` folder.
+
 There are three profiles defined in this application, `default`, `credential-sp`, and `credential-other`.
 
 - The `default` profile will try to leverage your local developing environment, such as your credential stored in Intellij, VS Code, Azure CLI, Azure Powershell, etc.
