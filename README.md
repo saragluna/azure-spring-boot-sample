@@ -78,20 +78,11 @@ Check [here](#known-issues) for more information.
 terraform output -json | jq -r ". as $in | keys[] | ($in[.].value | tostring) as $value | ($in[.].sensitive | tostring) as $sensitive | [ (. | ascii_upcase) + \"=\" + $value ] | .[]"
 ```
 
-## Make sure 4.0.0-beta.1 is available locally
-Since this sample requires the 4.0.0-beta.1 dependencies, you could either import this sample project to the Intellij project of `azure-sdk-for-java` or install the dependencies to local maven.
-The 4.0 is developed on branch https://github.com/Azure/azure-sdk-for-java/tree/feature/azure-spring-cloud-4.0. 
-
-```shell
-mvn clean install -f sdk/spring/pom.xml -P dev
-```
-
-
 ## Run the Sample Application
 
-There are three profiles defined in this application, `credential-default`, `credential-sp`, and `credential-other`.
+There are three profiles defined in this application, `default`, `credential-sp`, and `credential-other`.
 
-- The `credential-default` profile will try to leverage your local developing environment, such as your credential stored in Intellij, VS Code, Azure CLI, Azure Powershell, etc.
+- The `default` profile will try to leverage your local developing environment, such as your credential stored in Intellij, VS Code, Azure CLI, Azure Powershell, etc.
 - The `credential-sp` profile requires a service principal, which is the same service principal you configured in the terraform variables.
 - The `credential-other` profile tries to use credentials other than a token credential, such as SAS token or access key.
 
@@ -116,13 +107,6 @@ terraform destroy
   
   ![aad_application_object_id](./images/aad_object_id.jpg)
 </details>
-
-<details>
-  <summary>Why the terraform can't run on Apple M1?</summary>  
-  
-  `terraform-provider-azurecaf` doesn't have a darwin_arm64 package now. https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
-</details>  
-
 
 <details>
   <summary>Why do I need to manually add the role assignment of Cosmos?</summary>  
@@ -153,6 +137,11 @@ terraform destroy
   If you run `terraform apply` immediately after `terraform destroy`, it will complain the storage container can't be found. Just wait a couple minutes to run `terraform apply` will solve this problem.
 </details> 
 
+<details>
+  <summary>SOLVED -- Why the terraform can't run on Apple M1?</summary>  
+  
+  `terraform-provider-azurecaf` doesn't have a darwin_arm64 package now. https://github.com/aztfmod/terraform-provider-azurecaf/issues/95
+</details>  
 
 
 
