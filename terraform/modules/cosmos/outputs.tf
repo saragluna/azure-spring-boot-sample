@@ -17,3 +17,13 @@ output "cosmos_key" {
   value       = azurerm_cosmosdb_account.application.primary_key
   description = "The Azure Cosmos DB primary key."
 }
+
+output "cosmos_application_id" {
+  value       = azurerm_cosmosdb_account.application.id
+  description = "Azure Cosmos DB account application id."
+}
+
+output "azure_cosmos_account" {
+  value       = azurerm_cosmosdb_account.application.name
+  description = "Azure Cosmos DB account created."
+}

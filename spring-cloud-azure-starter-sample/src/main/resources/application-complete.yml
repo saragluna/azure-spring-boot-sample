@@ -160,5 +160,3 @@ management:
   health:
     azure-cosmos:
       enabled: true
-server:
-  address:

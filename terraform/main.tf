@@ -97,3 +97,5 @@ module "service-bus" {
   location             = var.location
   service_principal_id = var.service_principal_id
 }
+
+data "azurerm_client_config" "current" {}

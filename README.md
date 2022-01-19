@@ -39,23 +39,13 @@ terraform init
 terraform apply
 ```
 
-### Create data plane role assignment for Cosmos to service principal or user
+## Set up environment in terminal and run application
 ```shell
-accountName='your-cosmos-account-name'
-resourceGroupName='your-resource-group'
+source setup_env.sh
 
-# List data plane role definitions
-az cosmosdb sql role definition list --account-name $accountName --resource-group $resourceGroupName
-
-# Create role assignment
-subscriptionId='your-subscripiton-id'
-principalId='the-principal-id-of-the-user-or-service-principal'
-contributorRoleDefinitionId='/subscriptions/'$subscriptionId'/resourceGroups/'$resourceGroupName'/providers/Microsoft.DocumentDB/databaseAccounts/'$accountName'/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002'
-
-az cosmosdb sql role assignment create --account-name $accountName --resource-group $resourceGroupName --scope "/" --principal-id $principalId --role-definition-id $contributorRoleDefinitionId
+cd ../spring-cloud-azure-starter-sample
+mvn clean spring-boot:run 
 ```
-Check [here](#known-issues) for more information.
-
 
 ## Copy the outputs from Terraform to Your IDE or Environment
 ```shell
@@ -78,13 +68,6 @@ Check [here](#known-issues) for more information.
 terraform output -json | jq -r ". as $in | keys[] | ($in[.].value | tostring) as $value | ($in[.].sensitive | tostring) as $sensitive | [ (. | ascii_upcase) + \"=\" + $value ] | .[]"
 ```
 
-## Make sure 4.0.0-beta.1 is available locally
-Since this sample requires the 4.0.0-beta.1 dependencies, you could either import this sample project to the Intellij project of `azure-sdk-for-java` or install the dependencies to local maven.
-The 4.0 is developed on branch https://github.com/Azure/azure-sdk-for-java/tree/feature/azure-spring-cloud-4.0. 
-
-```shell
-mvn clean install -f sdk/spring/pom.xml -P dev
-```
 
 
 ## Run the Sample Application

@@ -126,3 +126,18 @@ output "storage_queue_name" {
   value       = module.storage.storage_queue_name
   description = "The Azure Storage queue name."
 }
+
+output "object_id" {
+  value       = data.azurerm_client_config.current.object_id
+  description = "Current user's object_id."
+}
+
+output "cosmos_application_id" {
+  value       = module.cosmos.cosmos_application_id
+  description = "Azure Cosmos DB account application id."
+}
+
+output "azure_cosmos_account" {
+  value       = module.cosmos.azure_cosmos_account
+  description = "Azure Cosmos DB account created."
+}

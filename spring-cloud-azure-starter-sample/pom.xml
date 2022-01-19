@@ -15,19 +15,26 @@
   <artifactId>spring-cloud-azure-starter-sample</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>com.azure.spring</groupId>
-      <artifactId>spring-cloud-azure-starter</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>com.azure.spring</groupId>
       <artifactId>spring-cloud-azure-starter-actuator</artifactId>
     </dependency>
 
     <dependency>
+      <groupId>com.azure.spring</groupId>
+      <artifactId>spring-cloud-azure-starter</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-cosmos</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.azure.spring</groupId>
+      <artifactId>spring-cloud-azure-starter-data-cosmos</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-data-appconfiguration</artifactId>
